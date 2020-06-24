@@ -4,6 +4,7 @@
 # As only 1 of the messages makes sense (Cooking MC's like a pound of bacon), it is easy to find it.
 # This code works only upto 128 characters and stops working for character 129 as bytes.decode cannot process the character "0x9b".
 
+# This function XORs pairs of hex digits of the string with the hex representation of the given character
 def singleByteXOR(hexString, character):
     output = ""
     for i in range(0, len(hexString), 2):
@@ -16,5 +17,5 @@ def singleByteXOR(hexString, character):
     return output
 
 hexString = input("Enter the hex string - ")
-for i in range(256):
+for i in range(256): # It tries to produce decrypted messages for all 256 possible characters but cannot do so after the 128th character 
     print("Character used - " + chr(i) + "Decrypted string is - " + bytes.decode(bytes.fromhex(singleByteXOR(hexString, hex(i))), "UTF-8"))
