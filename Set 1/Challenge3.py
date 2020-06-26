@@ -1,5 +1,3 @@
-import binascii
-
 """The challenge is to break a string encrypted using single byte XOR cipher and return the decrypted message
 Input - 1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736
 In this version, the user can view the 5 most probable decryted messages
