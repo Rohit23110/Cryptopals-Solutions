@@ -73,11 +73,19 @@ def decryptMessage(hexString):
         bytesOfXoredHex = singleByteXOR(hexString, hex(i))
         score = calculateScore(bytesOfXoredHex)
         if not messageList:
-            messageList.append([bytesOfXoredHex, score, chr(i)])
+            messageList.append( {
+                "messageInBytes": bytesOfXoredHex, 
+                "score": score, 
+                "key": chr(i)
+            })
         else:
             for message in messageList:
-                if score < message[1]:
-                    messageList.insert(messageList.index(message), [bytesOfXoredHex, score, chr(i)])
+                if score < message["score"]:
+                    messageList.insert(messageList.index(message), {
+                        "messageInBytes": bytesOfXoredHex, 
+                        "score": score, 
+                        "key": chr(i)
+                    })
                     break
             if len(messageList) > 20:
                 messageList.pop()
@@ -89,9 +97,9 @@ def printMessage(messageList):
     that is the required message and it is printed, else it checks further down the list."""
 
     for message in messageList:
-        messageString = convertBytesToString(message[0])
+        messageString = convertBytesToString(message["messageInBytes"])
         if messageString.isprintable(): 
-            print("Message - " + messageString + "   Score - " + "{:.2f}".format(message[1]) + "   Key - " + message[2])
+            print("Message - " + messageString + "   Score - " + "{:.2f}".format(message["score"]) + "   Key - " + message["key"])
             break
 
 if __name__ == "__main__":
